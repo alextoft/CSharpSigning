@@ -26,7 +26,7 @@ class Program {
             string cn = cert.GetNameInfo(X509NameType.SimpleName, false);
             string certPath = Path.Combine(tempDir, $"{cn}.pem");
             File.WriteAllBytes(certPath, certBytes);
-            string arguments = string.Format("-importcert -alias \"{0}\" -keystore \"{1}\" -storepass {2} -file \"{3}\"", cn, keystorePath, password, certPath);
+            string arguments = string.Format("-importcert -trustcacerts -alias \"{0}\" -keystore \"{1}\" -storepass {2} -file \"{3}\"", cn, keystorePath, password, certPath);
             System.Diagnostics.Process.Start(keytoolPath, arguments).WaitForExit();
             File.Delete(certPath);
         }
